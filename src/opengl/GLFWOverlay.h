@@ -8,7 +8,6 @@
 #include "lib/GLEW/include/glew.h"
 #include "lib/GLEW/include/wglew.h"
 #include "glfw3.h"
-#include "engine/gamedef.h"
 using namespace std;
 
 class GLFWOverlay {

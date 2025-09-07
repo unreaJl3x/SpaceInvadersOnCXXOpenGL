@@ -10,7 +10,7 @@ include_directories(src)
 include_directories(lib/GLFW/includes)
 #link_directories(lib/GLFW/32vc22)
 link_directories(lib/GLFW/64vc22)
-b,fwsednjklqfejhklaesawsefhnjkl3erqw
+
 include_directories(lib/GLEW/include)
 #link_directories(lib/GLEW/Win32)
 link_directories(lib/GLEW/x64)
@@ -21,7 +21,17 @@ link_directories(lib/GLEW/x64)
 add_executable( ${PROJECT_NAME}
         src/opengl/GLFWOverlay.h
         src/opengl/GLFWOverlay.cpp
+        
         main.cpp
+        src/PlayerController.h
+        src/ConfigSys.h
+        src/Objs/Ship.cpp
+        src/Objs/Ship.h
+        src/Scene.cpp
+        src/Scene.h
+        src/Objs/Obj.h
+        src/Objs/PowerUp.cpp
+        src/Objs/PowerUp.h
 )
 
 
