@@ -5,8 +5,14 @@
 #ifndef SIMPLECXXRPGONDX9_SHIP_H
 #define SIMPLECXXRPGONDX9_SHIP_H
 
+#include "Obj.h"
 
-class Ship {
+class Ship : public Obj{
+private:
+    float currentSpeed, maxSpeed;
+
+public:
+    Ship()=default;
 
 };
 

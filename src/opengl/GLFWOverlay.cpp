@@ -45,39 +45,6 @@ GLFWOverlay::~GLFWOverlay() {
     glfwTerminate();
 }
 
-/// map
-/// 0 ####################################
-/// 1 #----------------------------------#
-/// 2 #-----------------front------------#
-/// 3 #-------------right-P-left---------#
-/// 4 #----------------back--------------#
-/// 5 ####################################
-
-void GLFWOverlay::DrawUIBox(float sx, float sy, float ex, float ey, float* color, bool outline) {
-    glBegin(GL_QUADS);
-    glColor3f(color[0],color[1],color[2]);
-    glVertex2f(sx,sy);
-    glVertex2f(sx,ey);
-    glVertex2f(ex,ey);
-    glVertex2f(ex,sy);
-    glEnd();
-}
-
-float *GLFWOverlay::DrawOnVertex(vector<GDEFPOINT> vertexes, float*startColor,float*endColor) {
-    float * usingColor = new float[3] {1.f,0.0f,0.0f};
-    glBegin(GL_QUADS);
-    for (auto p : vertexes) {
-        if ( p.state == GDEF_GDEFPOINT_STATE_TOP ) { usingColor=endColor; }
-        else if ( p.state == GDEF_GDEFPOINT_STATE_BOTTOM ) { usingColor = startColor;}
-        else { usingColor = startColor;}
-
-        glColor3f(usingColor[0], usingColor[1], usingColor[2]);
-        glVertex2f(p.x,p.y);
-    }
-    glEnd();
-    return endColor;
-}
-
 bool GLFWOverlay::SetCursor(const char* path, string name) {
     GLFWimage *cursor;
     cursor = LoadImage(path);
@@ -110,24 +77,4 @@ bool GLFWOverlay::SetWinIcon(std::string path) {
         return true;
     }
     return false;
-}
-
-void GLFWOverlay::DrawRandomNoise(vector<GDEFPOINT>* list, int count, float *color)  {
-    glPointSize(2+(rand()%10+1>=4?1:0));
-    glBegin(GL_POINTS);
-    if (list->begin()==list->end()) {return;}
-    for (auto i=0;i<list->size()-1;i++) {
-        if ((*list)[i].y == (*list)[i+1].y || (*list)[i].x==(*list)[i+1].x ) {
-            cout << "[DrawRandomNoise] ERR? start point y eaquls end point y. Safing programm from crash (^_^)" << endl;
-            return;
-        }
-        for (auto j = 0; j < count; j++) {
-            glColor3f(color[0], color[1], color[2]);
-            glVertex2f((float((rand() % int(((*list)[i+1].x - (*list)[i].x) * windowResolution.x)) + (((*list)[i].x) * windowResolution.x)) /
-                        windowResolution.x),
-                       (float((rand() % int(((*list)[i+1].y - (*list)[i].y) * windowResolution.y)) + (((*list)[i].y) * windowResolution.y)) /
-                        windowResolution.y));
-        }
-    }
-    glEnd();
 }
